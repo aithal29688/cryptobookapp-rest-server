@@ -1,0 +1,18 @@
+http:
+  address: ":8090" # The HTTP address to bind to
+  readtimeout: 5 # in seconds
+  writetimeout: 10 # in seconds
+
+env: "dev"
+
+database:
+  host: "cryptobookdbinstance.c4fshiqizfeu.us-east-2.rds.amazonaws.com"
+  username: "postgres"
+  password: "sSyP2018"
+  port: 5432
+  ssl: false
+  dbname: "cryptopricesmulti"
+  dbcreate: false
+  connecttimeout: 1
+  nummaxidleconns: 3
+  nummaxopenconns: 10
