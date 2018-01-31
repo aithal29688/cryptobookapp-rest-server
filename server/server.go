@@ -9,6 +9,7 @@ import (
 	"github.com/Crypto/cryptobookapp-rest-server/misc"
 	"github.com/Crypto/cryptobookapp-rest-server/models"
 	"github.com/gorilla/mux"
+	log "github.com/sirupsen/logrus"
 )
 
 type Server struct {
@@ -31,7 +32,7 @@ func (s *Server) Run(conf *misc.Http, address string, routing Route) error {
 
 	routing(s)
 
-	//logging.Logger.WithField("address", address[1:]).Info("HTTP server ready")
+	log.WithField("address", address[1:]).Info("HTTP server ready")
 
 	return s.Server.ListenAndServe()
 }

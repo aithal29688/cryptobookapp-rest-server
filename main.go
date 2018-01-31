@@ -82,21 +82,10 @@ func startHTTPServer(address string, routing server.Route, db *sql.DB, conf *mis
 
 func newDatabaseSession(conf *misc.Database) (*sql.DB, error) {
 	log.WithField("config", *conf).Info("Connecting to the database...")
-	var sslmode = "sslmode=disable"
-	if conf.Ssl {
-		sslmode = ""
-	}
-	dbParams := fmt.Sprintf("host=%s dbname=%s user=%s password=%s connect_timeout=%d %s", conf.Host, conf.DbName,
-		conf.Username, conf.Password, conf.ConnectTimeout, sslmode)
+	dbParams := fmt.Sprintf("host=%s dbname=%s user=%s password=%s port=%d sslmode=disable", conf.Host, conf.DbName,
+		conf.Username, conf.Password, conf.Port)
 
-	if db, err := sql.Open("postgres", dbParams); err != nil {
-		return nil, err
-	} else {
-		db.SetMaxIdleConns(conf.NumMaxIdleConns)
-		db.SetMaxOpenConns(conf.NumMaxOpenConns)
-
-		return db, nil
-	}
+	return sql.Open("postgres", dbParams)
 }
 
 func shutdown(s *server.Server, db *sql.DB) {

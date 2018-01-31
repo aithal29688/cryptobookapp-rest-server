@@ -10,6 +10,7 @@ type Route func(s *Server)
 
 func AddRoutes(s *Server) {
 	s.addRoute("HealthCheck", "GET", "/dbstatus", s.DbStatus)
+	s.addRoute("GetPricesData", "GET", "/prices/from/{fromsymbol}/fromts/{fromTime}", s.ExtractData)
 }
 
 func (s *Server) addRoute(name string, method string, pattern string, fn http.HandlerFunc) {
